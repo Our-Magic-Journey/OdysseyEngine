@@ -1,11 +1,10 @@
 .PHONY: run build
 
-
 install:
-    mkdir maven
+	mkdir -p maven
 	docker compose build
-	docker compose run java mvn clean install  
+	docker compose run java mvn clean install
 
-run: 
+run:
+	rm -rf target
 	docker compose run java mvn package
-	docker compose run java java -jar target/nebulaquest-1.0.0.jar
