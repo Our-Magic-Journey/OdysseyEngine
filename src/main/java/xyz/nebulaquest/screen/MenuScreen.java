@@ -6,38 +6,50 @@ import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Renderer;
 import xyz.nebulaquest.ui.Image;
 import xyz.nebulaquest.ui.Text;
+import xyz.nebulaquest.ui.TextButton;
 
 public class MenuScreen extends Screen {
   public Image background;
   public Text title;
 
-  public Text startText;
-  public Text optionsText;
-  public Text exitText;
+  public TextButton startText;
+  public TextButton optionsText;
+  public TextButton exitText;
 
   public MenuScreen(InputManager inputManager, ScreenManager screenManager) {
     super(inputManager, screenManager);
-
-    background = new Image("/background.png", 0, 0);
-    title = new Text("Nebula Quest", 280, 100, "New Rocker", new Color(0xff7b00), 70);
   }
 
   @Override
   public void load() {
+    background = new Image("/background.png", 0, 0);
+    title = new Text("Nebula Quest", 280, 100, "/fonts/NewRocker.ttf", new Color(0xff7b00), 70);
+    startText = new TextButton("Start", 280, 250, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
+    optionsText = new TextButton("Options", 280, 310, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
+    exitText = new TextButton("Exit", 280, 370, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
   }
 
   @Override
   public void unload() {
+    startText.dispatch(inputManager);
+    optionsText.dispatch(inputManager);
+    exitText.dispatch(inputManager);
   }
 
   @Override
   public void update(long deltaTime) {
+    startText.update(deltaTime);
+    optionsText.update(deltaTime);
+    exitText.update(deltaTime);
   }
 
   @Override
   public void draw(Renderer renderer) {
     renderer.draw(background);
     renderer.draw(title);
+    renderer.draw(startText);
+    renderer.draw(optionsText);
+    renderer.draw(exitText);
   }
   
 }
