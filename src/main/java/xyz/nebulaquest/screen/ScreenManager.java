@@ -18,6 +18,7 @@ public class ScreenManager {
     this.selected = "menu";
 
     registerScreen("menu", new MenuScreen(inputManager, this));
+    registerScreen("credits", new CreditsScreen(inputManager, this));
     getCurrent().load();
   }
 
@@ -32,7 +33,7 @@ public class ScreenManager {
   public Screen getCurrent() {
     return screens.get(selected);
   }
-  
+
   public void change(String state) {
     if (!isScreenRestated(state)) {
       return;
