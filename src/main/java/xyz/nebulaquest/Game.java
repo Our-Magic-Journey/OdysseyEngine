@@ -29,7 +29,7 @@ public class Game implements Runnable {
 
     canvas.onReady().subscribe(this::start);
     screenManager.onGameClose().subscribe(this::close);
-    
+
     window.attachCanvas(canvas);
   }
 
@@ -59,11 +59,13 @@ public class Game implements Runnable {
   public void gameLoop() {
     while (running) {
       long deltaTime = calculateLastFrameDuration();
-      
+
       screenManager.update(deltaTime);
       screenManager.draw(renderer);
       renderer.drawOnScreen();
     }
+
+    window.close();
   }
 
   private long calculateLastFrameDuration() {

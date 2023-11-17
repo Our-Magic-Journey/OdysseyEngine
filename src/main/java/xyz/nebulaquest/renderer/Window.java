@@ -24,8 +24,12 @@ public class Window {
     this.window.setContentPane(canvas);
     this.window.pack();
   }
-  
+
   public String getTitle() {
     return title;
+  }
+
+  public void close(){
+    this.window.dispose();
   }
 }
