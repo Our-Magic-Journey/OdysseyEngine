@@ -1,19 +1,20 @@
 package xyz.nebulaquest.screen;
 
 import java.util.HashMap;
-import java.util.Optional;
 
+import xyz.nebulaquest.event.Event;
+import xyz.nebulaquest.event.EventGetter;
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Renderer;
 
 public class ScreenManager {
   public HashMap<String, Screen> screens;
   private String selected;
-  private Optional<Runnable> closeGameHandler;
+  private Event closeGameEvent;
 
   public ScreenManager(InputManager inputManager) {
     this.screens = new HashMap<>();
-    this.closeGameHandler = Optional.empty();
+    this.closeGameEvent = new Event();
     this.selected = "menu";
 
     registerScreen("menu", new MenuScreen(inputManager, this));
@@ -24,8 +25,8 @@ public class ScreenManager {
     screens.put(name, screen);
   }
 
-  public void onGameClose(Runnable callback) {
-    this.closeGameHandler = Optional.of(callback);
+  public EventGetter onGameClose() {
+    return this.closeGameEvent;
   }
 
   public Screen getCurrent() {
@@ -47,9 +48,7 @@ public class ScreenManager {
   }
 
   public void closeGame() {
-    if (closeGameHandler.isPresent()) {
-      closeGameHandler.get().run();
-    }
+    this.closeGameEvent.emit();
   }
 
   public void update(long deltaTime) {

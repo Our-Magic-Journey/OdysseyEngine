@@ -1,16 +1,18 @@
 package xyz.nebulaquest.renderer;
 
 import java.awt.Dimension;
-import java.util.Optional;
 
 import javax.swing.JPanel;
+
+import xyz.nebulaquest.event.Event;
+import xyz.nebulaquest.event.EventGetter;
 
 public class Canvas extends JPanel {
   private int width;
   private int height;
   private int scale;
 
-  private Optional<Runnable> readyHandler;
+  private Event readyEvent;
 
   public Canvas() {
     this(320, 240, 2);
@@ -27,15 +29,15 @@ public class Canvas extends JPanel {
     this.height = height;
     this.scale = scale;
 
-    this.readyHandler = Optional.empty();
+    this.readyEvent = new Event();
 
     setPreferredSize(new Dimension(width * scale, height * scale));
     setFocusable(true);
     requestFocus();
   }
 
-  public void onReady(Runnable callback) {
-    this.readyHandler = Optional.of(callback);
+  public EventGetter onReady() {
+    return readyEvent;
   }
 
   public int getCanvasWidth() {
@@ -53,9 +55,6 @@ public class Canvas extends JPanel {
   @Override
   public void addNotify() {
     super.addNotify();
-
-    if (readyHandler.isPresent()) {
-      readyHandler.get().run();
-    }
+    readyEvent.emit();
   }
 }

@@ -2,46 +2,39 @@ package xyz.nebulaquest.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.function.Consumer;
 
 import javax.swing.JPanel;
 
+import xyz.nebulaquest.event.EventGroup;
+import xyz.nebulaquest.event.EventGroupGetter;
 import xyz.nebulaquest.input.types.KeyInputType;
 import xyz.nebulaquest.input.types.MouseInputType;
-import xyz.nebulaquest.subscriber.Subscriber;
 
 public class InputManager {
-  private Subscriber<MouseInputType, MouseEvent> mouseEvents;
-  private Subscriber<KeyInputType, KeyEvent> keyboardEvens;
+  private EventGroup<MouseInputType, MouseEvent> mouseEvents;
+  private EventGroup<KeyInputType, KeyEvent> keyboardEvents;
 
   private KeyInputListener keyboardListener;
   private MouseInputListener mouseListener;
 
   public InputManager() {
-    this.mouseEvents = new Subscriber<>();
-    this.keyboardEvens = new Subscriber<>();
-    this.keyboardListener = new KeyInputListener(keyboardEvens);
+    this.mouseEvents = new EventGroup<>();
+    this.keyboardEvents = new EventGroup<>();
+    this.keyboardListener = new KeyInputListener(keyboardEvents);
     this.mouseListener = new MouseInputListener(mouseEvents);
   }
 
-  public void addMouseEvent(MouseInputType type, Consumer<MouseEvent> callback) {
-    mouseEvents.subscribe(type, callback);
+  public EventGroupGetter<MouseInputType, MouseEvent> onMouseEvent() {
+    return mouseEvents;
   }
 
-  public void removeMouseEvent(MouseInputType type, Consumer<MouseEvent> callback) {
-    mouseEvents.unsubscribe(type, callback);
+  public EventGroupGetter<KeyInputType, KeyEvent> onKeyboardEvent() {
+    return keyboardEvents;
   }
 
-  public void addKeyboardEvent(KeyInputType type, Consumer<KeyEvent> callback) {
-    keyboardEvens.subscribe(type, callback);
-  }
-
-  public void removeKeyboardEvent(KeyInputType type, Consumer<KeyEvent> callback) {
-    keyboardEvens.unsubscribe(type, callback);
-  }
-
-  public void observe(JPanel window) {
-    window.addMouseListener(mouseListener);
-    window.addKeyListener(keyboardListener);
+  public void observe(JPanel panel) {
+    panel.addMouseListener(mouseListener);
+    panel.addMouseMotionListener(mouseListener);
+    panel.addKeyListener(keyboardListener);
   }
 }

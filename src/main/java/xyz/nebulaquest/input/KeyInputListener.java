@@ -3,28 +3,28 @@ package xyz.nebulaquest.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import xyz.nebulaquest.event.EventGroup;
 import xyz.nebulaquest.input.types.KeyInputType;
-import xyz.nebulaquest.subscriber.Subscriber;
 
-public class KeyInputListener extends Subscriber<KeyInputType, KeyEvent> implements KeyListener {
-  private Subscriber<KeyInputType, KeyEvent> listener;
+public class KeyInputListener extends EventGroup<KeyInputType, KeyEvent> implements KeyListener {
+  private EventGroup<KeyInputType, KeyEvent> eventGroup;
 
-  public KeyInputListener(Subscriber<KeyInputType, KeyEvent> listener) {
-    this.listener = listener;
+  public KeyInputListener(EventGroup<KeyInputType, KeyEvent> eventGroup) {
+    this.eventGroup = eventGroup;
   }
 
   @Override
   public void keyPressed(KeyEvent event) {
-    listener.sendNotification(KeyInputType.PRESS, event);
+    eventGroup.emit(KeyInputType.PRESS, event);
   }
 
   @Override
   public void keyReleased(KeyEvent event) {
-    listener.sendNotification(KeyInputType.RELEASE, event);
+    eventGroup.emit(KeyInputType.RELEASE, event);
   }
 
   @Override
   public void keyTyped(KeyEvent event) {
-    listener.sendNotification(KeyInputType.TYPE, event);
+    eventGroup.emit(KeyInputType.TYPE, event);
   } 
 }

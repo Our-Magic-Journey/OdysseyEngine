@@ -2,44 +2,66 @@ package xyz.nebulaquest.ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import xyz.nebulaquest.renderer.Drawable;
 import xyz.nebulaquest.renderer.Canvas;
 
 public class Text implements Drawable {
-  private Color color;
-  private Font font;
-  private int size;
-  private String text;
-  private int x;
-  private int y;
+  protected int width;
+  protected int height;
+  protected Color color;
+  protected Font font;
+  protected int size;
+  protected String text;
+  protected int x;
+  protected int y;
 
-  public Text(String text, int x,  int y) {
-    this(text, x, y, "Arial", Color.BLACK, 12);
+  public Text(String text, String font, int x,  int y) {
+    this(text, x, y, font, Color.BLACK, 12);
   }
 
   public Text(String text, int x, int y, String font, Color color, int size) {
     try {
+      this.font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream(font));
+      this.font = this.font.deriveFont(Font.PLAIN, size);
+
       this.text = text;
       this.x = x;
       this.y = y;
       this.color = color;
-      this.font = new Font(font, Font.PLAIN, size);
       this.size = size;
+      this.calculateSize();
     }
     catch(Exception e) {
       e.printStackTrace();
     }
   }
 
-  public void setSize(int size) {
-    this.size = size;
-    reloadFont();
+  protected void calculateSize() {
+    BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+    Graphics g = img.getGraphics();
+
+    g.setFont(font);
+
+    FontMetrics metrics = g.getFontMetrics();
+
+    width = metrics.stringWidth(text);
+    height = metrics.getHeight();
   }
 
-  private void reloadFont() {
-    this.font = new Font(this.font.getFontName(), Font.PLAIN, size);
+  public void setSize(int size) {
+    this.size = size;
+    this.font = this.font.deriveFont(Font.PLAIN, size);
+    this.calculateSize();
+  }
+
+  public void setFontStyle(int style) {
+    this.font = this.font.deriveFont(style, size);
+    this.calculateSize();
   }
 
   public int getSize() {
@@ -56,14 +78,11 @@ public class Text implements Drawable {
 
   public void setText(String text) {
     this.text = text;
+    this.calculateSize();
   }
 
   public String getText() {
     return this.text;
-  }
-
-  public void setFont(String font) {
-    this.font = new Font(font, Font.PLAIN, size);
   }
 
   public String getFont() {
@@ -74,8 +93,6 @@ public class Text implements Drawable {
   public void draw(Graphics2D graphic, Canvas canvas) {
     graphic.setFont(font);
     graphic.setColor(color);
-    graphic.drawString(text, x, y);
+    graphic.drawString(text, x, y + graphic.getFontMetrics().getAscent());
   }
-
-  
 }

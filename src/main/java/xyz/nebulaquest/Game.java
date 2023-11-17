@@ -28,14 +28,15 @@ public class Game implements Runnable {
     inputManager = new InputManager();
     screenManager = new ScreenManager(inputManager);
 
-    canvas.onReady(() -> start());
-    screenManager.onGameClose(() -> close());
-
+    canvas.onReady().subscribe(this::start);
+    screenManager.onGameClose().subscribe(this::close);
+    
     prepareWindow();
   }
 
   private void prepareWindow() {
     window.setContentPane(canvas);
+
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.setResizable(false);
     window.pack();
@@ -43,6 +44,7 @@ public class Game implements Runnable {
   }
 
   private void start() {
+    inputManager.observe(canvas);
     initThread();
   }
 
@@ -76,7 +78,7 @@ public class Game implements Runnable {
 
   private long calculateLastFrameDuration() {
     long current = System.currentTimeMillis();
-    long duration = lastFrame - current;
+    long duration = current - lastFrame;
 
     lastFrame = current;
 
