@@ -6,6 +6,8 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 
 import xyz.nebulaquest.collision.BoxCollider;
+import xyz.nebulaquest.event.Event;
+import xyz.nebulaquest.event.EventGetter;
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.input.types.MouseInputType;
 import xyz.nebulaquest.renderer.Canvas;
@@ -17,6 +19,7 @@ public class TextButton extends Text implements Updatable {
   private boolean hover;
   private boolean clicked;
   private Timer clickedTimer;
+  private Event clickEvent;
 
   public TextButton(String text, String font, int x, int y, InputManager inputManager) {
     this(text, x, y, font, Color.BLACK, 12, inputManager);
@@ -25,6 +28,7 @@ public class TextButton extends Text implements Updatable {
   public TextButton(String text, int x, int y, String font, Color color, int size, InputManager inputManager) {
     super(text, x, y, font, color, size);
 
+    this.clickEvent = new Event();
     this.hover = false;
     this.clicked = false;
     this.clickedTimer = new Timer(250);
@@ -34,6 +38,11 @@ public class TextButton extends Text implements Updatable {
     inputManager.onMouseEvent().subscribe(MouseInputType.CLICK, this::handleMouseClick);
     clickedTimer.onTimeout().subscribe(this::unclick);
   }
+
+  public EventGetter onClick(){
+    return this.clickEvent;
+  }
+
 
   @Override
   protected void calculateSize() {
@@ -54,6 +63,7 @@ public class TextButton extends Text implements Updatable {
     if (this.hover && event.getButton() == MouseEvent.BUTTON1) {
       this.clicked = true;
       this.clickedTimer.reset();
+      this.clickEvent.emit();
     }
   }
 
@@ -63,13 +73,13 @@ public class TextButton extends Text implements Updatable {
 
   @Override
   public void update(long deltaTime) {
-    clickedTimer.update(deltaTime);   
+    clickedTimer.update(deltaTime);
   }
 
   @Override
   public void draw(Graphics2D graphic, Canvas canvas) {
     graphic.setFont(font);
-    
+
     if (clicked) {
       graphic.setColor(color.brighter().brighter().brighter());
     }
