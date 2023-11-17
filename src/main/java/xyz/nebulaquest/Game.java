@@ -1,14 +1,13 @@
 package xyz.nebulaquest;
 
-import javax.swing.JFrame;
-
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Renderer;
+import xyz.nebulaquest.renderer.Window;
 import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.screen.ScreenManager;
 
 public class Game implements Runnable {
-  private JFrame window;
+  private Window window;
   private Canvas canvas;
   private Renderer renderer;
   private InputManager inputManager;
@@ -22,7 +21,7 @@ public class Game implements Runnable {
   }
 
   public Game() {
-    window = new JFrame("Nebula Quest");
+    window = new Window("Nebula Quest");
     canvas = new Canvas(960, 540, 1);
     renderer = new Renderer(canvas);
     inputManager = new InputManager();
@@ -31,16 +30,7 @@ public class Game implements Runnable {
     canvas.onReady().subscribe(this::start);
     screenManager.onGameClose().subscribe(this::close);
     
-    prepareWindow();
-  }
-
-  private void prepareWindow() {
-    window.setContentPane(canvas);
-
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    window.setResizable(false);
-    window.pack();
-    window.setVisible(true);
+    window.attachCanvas(canvas);
   }
 
   private void start() {
