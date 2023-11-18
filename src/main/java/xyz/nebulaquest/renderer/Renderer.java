@@ -54,4 +54,12 @@ public class Renderer {
     screen.drawImage(buffer, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
     screen.dispose();
   }
+  
+  public int getWidth() {
+    return canvas.getCanvasWidth();
+  }
+
+  public int getHeight() {
+    return canvas.getCanvasHeight();
+  }
 }
