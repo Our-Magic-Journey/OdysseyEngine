@@ -9,13 +9,13 @@ import xyz.nebulaquest.ui.Text;
 import xyz.nebulaquest.ui.TextButton;
 
 public class MenuScreen extends Screen {
-  public Image background;
-  public Text title;
+  private Image background;
+  private Text title;
 
-  public TextButton startButton;
-  public TextButton optionsButton;
-  public TextButton creditsButton;
-  public TextButton exitButton;
+  private TextButton startButton;
+  private TextButton optionsButton;
+  private TextButton creditsButton;
+  private TextButton exitButton;
 
 
   public MenuScreen(InputManager inputManager, ScreenManager screenManager) {
