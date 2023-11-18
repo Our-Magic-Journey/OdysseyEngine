@@ -1,6 +1,7 @@
 package xyz.nebulaquest.screen;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import xyz.nebulaquest.event.Event;
 import xyz.nebulaquest.event.EventGetter;
@@ -10,12 +11,14 @@ import xyz.nebulaquest.renderer.Renderer;
 public class ScreenManager {
   public HashMap<String, Screen> screens;
   private String selected;
+  private Optional<String> nextScreen;
   private Event closeGameEvent;
 
   public ScreenManager(InputManager inputManager) {
     this.screens = new HashMap<>();
     this.closeGameEvent = new Event();
     this.selected = "menu";
+    this.nextScreen = Optional.empty();
 
     registerScreen("menu", new MenuScreen(inputManager, this));
     registerScreen("credits", new CreditsScreen(inputManager, this));
@@ -39,9 +42,7 @@ public class ScreenManager {
       return;
     }
 
-    getCurrent().unload();
-    selected = state;
-    getCurrent().load();
+    nextScreen = Optional.of(state);
   }
 
   private boolean isScreenRestated(String key) {
@@ -53,7 +54,18 @@ public class ScreenManager {
   }
 
   public void update(long deltaTime) {
+    loadNextScreen();    
     getCurrent().update(deltaTime);
+  }
+
+  private void loadNextScreen() {
+    if (!nextScreen.isPresent()) {
+      return;
+    }
+    
+    getCurrent().unload();
+    selected = nextScreen.get();
+    getCurrent().load();
   }
 
   public void draw(Renderer renderer) {
