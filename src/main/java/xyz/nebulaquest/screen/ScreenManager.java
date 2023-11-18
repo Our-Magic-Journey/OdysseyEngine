@@ -66,6 +66,8 @@ public class ScreenManager {
     getCurrent().unload();
     selected = nextScreen.get();
     getCurrent().load();
+
+    nextScreen = Optional.empty();
   }
 
   public void draw(Renderer renderer) {
