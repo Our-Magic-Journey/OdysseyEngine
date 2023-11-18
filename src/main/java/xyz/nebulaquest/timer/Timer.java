@@ -19,6 +19,7 @@ public class Timer implements Updatable {
     this.waitTime = waitTime;
     this.timeLeft = waitTime;
     this.timeoutEvent = new Event();
+    this.paused = true;
   }
 
   public EventGetter onTimeout() {

@@ -38,14 +38,14 @@ public class ScreenManager {
   }
 
   public void change(String state) {
-    if (!isScreenRestated(state)) {
+    if (!isScreenRegistrated(state)) {
       return;
     }
 
     nextScreen = Optional.of(state);
   }
 
-  private boolean isScreenRestated(String key) {
+  private boolean isScreenRegistrated(String key) {
     return screens.containsKey(key);
   }
 
@@ -66,6 +66,8 @@ public class ScreenManager {
     getCurrent().unload();
     selected = nextScreen.get();
     getCurrent().load();
+
+    nextScreen = Optional.empty();
   }
 
   public void draw(Renderer renderer) {
