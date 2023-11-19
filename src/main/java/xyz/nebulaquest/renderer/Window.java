@@ -24,7 +24,7 @@ public class Window {
   /** Configures the window settings. */
   private void configure() {
     this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.window.setResizable(true);
+    this.window.setResizable(false);
     this.window.pack();
     this.window.setVisible(true);
   }
