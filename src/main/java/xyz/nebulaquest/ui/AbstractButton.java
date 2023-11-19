@@ -82,16 +82,16 @@ public abstract class AbstractButton implements Updatable, Drawable {
   }
 
   @Override
-  public void draw(Graphics2D graphic, Canvas canvas) {
+  public void draw(Graphics2D context, Canvas canvas) {
 
     if (clicked) {
-      graphic.setColor(color.brighter().brighter().brighter());
+      context.setColor(color.brighter().brighter().brighter());
     }
     else if (hover) {
-      graphic.setColor(color.brighter());
+      context.setColor(color.brighter());
     }
     else {
-      graphic.setColor(color);
+      context.setColor(color);
     }
   }
 

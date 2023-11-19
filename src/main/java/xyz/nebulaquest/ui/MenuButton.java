@@ -13,10 +13,11 @@ public class MenuButton extends AbstractButton {
   }
 
   @Override
-  public void draw(Graphics2D graphic, Canvas canvas) {
-    super.draw(graphic, canvas);
-    graphic.fillRect(x, y, 5, 40);  
-    graphic.fillRect(x+10, y, 5, 40); 
-    graphic.fillRect(x+20, y, 5, 40); 
+  public void draw(Graphics2D context, Canvas canvas) {
+    super.draw(context, canvas);
+    
+    context.fillRect(x, y, 5, 40);  
+    context.fillRect(x+10, y, 5, 40); 
+    context.fillRect(x+20, y, 5, 40); 
   }
 }
