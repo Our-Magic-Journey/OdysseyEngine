@@ -101,7 +101,6 @@ public abstract class AbstractButton implements Updatable, Drawable {
     }
   }
 
-
   /** Resets the clicked state */
   protected void unclick() {
     this.clicked = false;

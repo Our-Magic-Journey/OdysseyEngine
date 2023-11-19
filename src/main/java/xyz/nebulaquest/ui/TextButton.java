@@ -149,18 +149,9 @@ public class TextButton extends AbstractButton {
   public void draw(Graphics2D context, Canvas canvas) {
     context.setFont(font);
 
-    if (clicked) {
-      context.setColor(color.brighter().brighter().brighter());
-    }
-    else if (hover) {
-      context.setColor(color.brighter());
-    }
-    else {
-      context.setColor(color);
-    }
+    super.draw(graphic, canvas);
 
     context.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     context.drawString(text, x, y + context.getFontMetrics().getAscent());
   }
-
 }
