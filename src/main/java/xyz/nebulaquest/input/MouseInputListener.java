@@ -7,6 +7,9 @@ import java.awt.event.MouseMotionListener;
 import xyz.nebulaquest.event.EventGroup;
 import xyz.nebulaquest.input.types.MouseInputType;
 
+/**
+ * Listens for mouse input events and emits corresponding events to the associated EventGroup.
+ */
 public class MouseInputListener implements MouseListener, MouseMotionListener {
   private EventGroup<MouseInputType, MouseEvent> eventGroup;
 

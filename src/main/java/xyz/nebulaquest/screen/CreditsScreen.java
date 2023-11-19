@@ -9,7 +9,11 @@ import xyz.nebulaquest.ui.Image;
 import xyz.nebulaquest.ui.Text;
 import xyz.nebulaquest.ui.TextButton;
 
-
+/**
+ * Represents the credits screen in the game.
+ * 
+ * @see Screen
+ */
 public class CreditsScreen extends Screen {
   private Image background;
   private Text title;

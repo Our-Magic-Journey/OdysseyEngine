@@ -14,6 +14,13 @@ import xyz.nebulaquest.renderer.Drawable;
 import xyz.nebulaquest.timer.Timer;
 import xyz.nebulaquest.update.Updatable;
 
+/**
+ * Base class for creating various types of buttons with built-in 
+ * hover and click animations an onClick event.
+ *
+ * @see Updatable
+ * @see Drawable
+ */
 public abstract class AbstractButton implements Updatable, Drawable {
   protected BoxCollider collider;
   protected boolean hover;
@@ -27,6 +34,17 @@ public abstract class AbstractButton implements Updatable, Drawable {
   protected int x;
   protected int y;
 
+  /**
+   * Constructs a new instance of the AbstractButton.
+   * 
+   * @param x The x-coordinate of the button.
+   * @param y The y-coordinate of the button.
+   * @param width The width of the button.
+   * @param height The height of the button.
+   * @param color The color of the button.
+   * @param inputManager The input manager for handling user input.
+   * 
+   */
   public AbstractButton(int x, int y, int width, int height, Color color, InputManager inputManager) {
     this.x = x;
     this.y = y;
@@ -45,19 +63,36 @@ public abstract class AbstractButton implements Updatable, Drawable {
     clickedTimer.onTimeout().subscribe(this::unclick);
   }
 
+  /**
+   * Returns an {@link EventGetter} for the "click" event.
+   *
+   * <p>The "click" event is emitted when the button is clicked.</p>
+   * <p>Subscribe a function to this event; when the button is clicked, the subscribed function will be called.</p>
+   *
+   * @return An {@link EventGetter} for the "click" event.
+   */
   public EventGetter onClick(){
     return this.clickEvent;
   }
 
+  /**
+   * Unsubscribes the button from mouse events.
+   * 
+   * <p><b>NOTE:</b> It must be called before the destroying of the button to prevent errors.</p>
+   *
+   * @param inputManager The input manager to unsubscribe from.
+   */
   public void dispatch(InputManager inputManager) {
     inputManager.onMouseEvent().unsubscribe(MouseInputType.MOVE, this::handleMouseMove);
     inputManager.onMouseEvent().unsubscribe(MouseInputType.CLICK, this::handleMouseClick);
   }
 
+  /** Handles the mouse move event to check if the mouse is over the button. */
   protected void handleMouseMove(MouseEvent event) {
     this.hover = this.collider.containsPoint(event.getX() + event.getComponent().getX(), event.getY() + event.getComponent().getY());
   }
 
+  /* Handles the mouse click event to check if the button is clicked. */
   protected void handleMouseClick(MouseEvent event) {
     if (this.hover && event.getButton() == MouseEvent.BUTTON1) {
       this.clicked = true;
@@ -66,10 +101,17 @@ public abstract class AbstractButton implements Updatable, Drawable {
     }
   }
 
+  /** Resets the clicked state */
   protected void unclick() {
     this.clicked = false;
   }
 
+  /**
+   * Sets the position of the button.
+   * 
+   * @param x The new x-coordinate.
+   * @param y The new y-coordinate.
+   */
   public void setPosition(int x, int y) {
     this.x = x;
     this.y = y;
@@ -82,17 +124,16 @@ public abstract class AbstractButton implements Updatable, Drawable {
   }
 
   @Override
-  public void draw(Graphics2D graphic, Canvas canvas) {
+  public void draw(Graphics2D context, Canvas canvas) {
 
     if (clicked) {
-      graphic.setColor(color.brighter().brighter().brighter());
+      context.setColor(color.brighter().brighter().brighter());
     }
     else if (hover) {
-      graphic.setColor(color.brighter());
+      context.setColor(color.brighter());
     }
     else {
-      graphic.setColor(color);
+      context.setColor(color);
     }
   }
-
 }
