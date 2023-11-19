@@ -6,8 +6,20 @@ import java.awt.Graphics2D;
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Canvas;
 
+/** Hamburger like Menu Button.
+ * 
+ * @see AbstractButton
+*/
 public class MenuButton extends AbstractButton {
 
+  /**
+   * Constructs a new instance of the MenuButton.
+   * 
+   * @param x The x-coordinate of the button.
+   * @param y The y-coordinate of the button.
+   * @param inputManager The input manager for handling user input.
+   * 
+   */
   public MenuButton(int x, int y,InputManager inputManager) {
     super(x,y,25,40,new Color(0xff7b00),inputManager);
   }
