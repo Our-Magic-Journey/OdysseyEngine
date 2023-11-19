@@ -6,6 +6,9 @@ import java.awt.event.KeyListener;
 import xyz.nebulaquest.event.EventGroup;
 import xyz.nebulaquest.input.types.KeyInputType;
 
+/**
+ * Listens for keyboard input events and emits corresponding events to the associated EventGroup.
+ */
 public class KeyInputListener extends EventGroup<KeyInputType, KeyEvent> implements KeyListener {
   private EventGroup<KeyInputType, KeyEvent> eventGroup;
 
