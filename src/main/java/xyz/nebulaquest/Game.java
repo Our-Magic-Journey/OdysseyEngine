@@ -22,7 +22,7 @@ public class Game implements Runnable {
 
   public Game() {
     window = new Window("Nebula Quest");
-    canvas = new Canvas(960, 540, 1);
+    canvas = new Canvas(960, 540);
     renderer = new Renderer(canvas);
     inputManager = new InputManager();
     screenManager = new ScreenManager(inputManager);
