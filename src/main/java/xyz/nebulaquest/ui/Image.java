@@ -36,7 +36,7 @@ public class Image implements Drawable {
 
 
   @Override
-  public void draw(Graphics2D graphic, Canvas canvas) {
-    graphic.drawImage(image, x, y, null);
+  public void draw(Graphics2D context, Canvas canvas) {
+    context.drawImage(image, x, y, null);
   }
 }

@@ -43,11 +43,11 @@ public class Text implements Drawable {
 
   protected void calculateSize() {
     BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
-    Graphics g = img.getGraphics();
+    Graphics context = img.getGraphics();
 
-    g.setFont(font);
+    context.setFont(font);
 
-    FontMetrics metrics = g.getFontMetrics();
+    FontMetrics metrics = context.getFontMetrics();
 
     width = metrics.stringWidth(text);
     height = metrics.getHeight();
@@ -90,9 +90,9 @@ public class Text implements Drawable {
   }
 
   @Override
-  public void draw(Graphics2D graphic, Canvas canvas) {
-    graphic.setFont(font);
-    graphic.setColor(color);
-    graphic.drawString(text, x, y + graphic.getFontMetrics().getAscent());
+  public void draw(Graphics2D context, Canvas canvas) {
+    context.setFont(font);
+    context.setColor(color);
+    context.drawString(text, x, y + context.getFontMetrics().getAscent());
   }
 }

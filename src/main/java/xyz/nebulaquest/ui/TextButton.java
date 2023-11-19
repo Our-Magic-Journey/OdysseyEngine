@@ -77,21 +77,21 @@ public class TextButton extends Text implements Updatable {
   }
 
   @Override
-  public void draw(Graphics2D graphic, Canvas canvas) {
-    graphic.setFont(font);
+  public void draw(Graphics2D context, Canvas canvas) {
+    context.setFont(font);
 
     if (clicked) {
-      graphic.setColor(color.brighter().brighter().brighter());
+      context.setColor(color.brighter().brighter().brighter());
     }
     else if (hover) {
-      graphic.setColor(color.brighter());
+      context.setColor(color.brighter());
     }
     else {
-      graphic.setColor(color);
+      context.setColor(color);
     }
 
-    graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-    graphic.drawString(text, x, y + graphic.getFontMetrics().getAscent());
+    context.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    context.drawString(text, x, y + context.getFontMetrics().getAscent());
   }
 
 }
