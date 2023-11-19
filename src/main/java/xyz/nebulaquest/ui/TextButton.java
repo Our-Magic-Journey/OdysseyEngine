@@ -149,7 +149,7 @@ public class TextButton extends AbstractButton {
   public void draw(Graphics2D context, Canvas canvas) {
     context.setFont(font);
 
-    super.draw(graphic, canvas);
+    super.draw(context, canvas);
 
     context.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     context.drawString(text, x, y + context.getFontMetrics().getAscent());
