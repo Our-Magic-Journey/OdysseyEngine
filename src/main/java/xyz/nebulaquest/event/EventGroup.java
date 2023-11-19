@@ -18,7 +18,7 @@ public class EventGroup<T, N> implements EventGroupGetter<T, N> {
   }
 
   /**
-   * Subscribes to an event of the {@code event} type by setting a callback function that will be invoked later 
+   * Subscribes to an event by setting a callback function that will be invoked later 
    * when an event happens.
    * 
    * <p><b>NOTE:</b> A single callback function can subscribe to a particular event type only once.</p>
@@ -32,7 +32,7 @@ public class EventGroup<T, N> implements EventGroupGetter<T, N> {
   }
 
   /**
-   * Unsubscribes a callback function from the subscribers list of the particular event of type {@code event} so it will not be called by this event in the future.
+   * Unsubscribes a callback function from the subscribers list of the particular event so it will not be called by this event in the future.
    * 
    * <p><b>NOTE:</b> To unsubscribe an event, callback needs to be reference to the same function that was used when registered.
    * So anonymous functions like {@code (int x) -> x*x} CANNOT be unsubscribed.
@@ -48,7 +48,7 @@ public class EventGroup<T, N> implements EventGroupGetter<T, N> {
   }
 
   /**
-   * Emits the event, invoking all callback functions that are subscribing to the particular event of type {@code type} with a specific value.
+   * Emits the event, invoking all callback functions that are subscribing to the particular event with a specific value.
    *    
    * @param event The type of event to emit.
    * @param value The value to pass to the subscribing callback functions.
