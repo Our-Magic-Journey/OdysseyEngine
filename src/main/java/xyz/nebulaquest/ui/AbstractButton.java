@@ -94,5 +94,4 @@ public abstract class AbstractButton implements Updatable, Drawable {
       context.setColor(color);
     }
   }
-
 }
