@@ -45,11 +45,12 @@ public class Timer implements Updatable {
   }
 
   /**
-   * Getter to the timeout event that will be emitted when the time set in {@code waitTime} parameter elapses.
-   * 
-   * <p>Use {@code onTimeout().subscribe()} to add callbacks and {@code onTimeout().unsubscribe()} to remove them.</p>
+   * Returns an {@link EventGetter} for the "timeout" event.
    *
-   * @return {@code EventGetter} a getter for the timeout event that allows subscribing or unsubscribing it
+   * <p>The "timeout" event is emitted when the time set in {@code waitTime} parameter elapses</p>
+   * <p>Subscribe a function to this event; when the {@code waitTime} elapses, the subscribed function will be called.</p>
+   *
+   * @return An {@link EventGetter} for the "click" event.
    */
    public EventGetter onTimeout() {
     return timeoutEvent;
