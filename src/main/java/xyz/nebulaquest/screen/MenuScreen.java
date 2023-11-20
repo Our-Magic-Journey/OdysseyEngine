@@ -29,7 +29,7 @@ public class MenuScreen extends Screen {
 
   @Override
   public void load() {
-    background = new Image("/background.png", 0, 0);
+    background = new Image("/images/background.png", 0, 0);
     title = new Text("Nebula Quest", 280, 100, "/fonts/NewRocker.ttf", new Color(0xff7b00), 70);
     startButton = new TextButton("Start", 280, 250, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
     optionsButton = new TextButton("Options", 280, 310, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
