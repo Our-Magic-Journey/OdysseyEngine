@@ -29,12 +29,12 @@ public class TextButton extends AbstractButton {
    * Constructs a TextButton instance with the specified text, font, position, color, font size, and input manager.
    *
    * @param text The text content of the button.
-   * @param font The path to the font file. ("/" - means /src/main/resources)
    * @param x The x-coordinate of the button.
    * @param y The y-coordinate of the button.
+   * @param font The font used for the text.
    * @param inputManager The InputManager instance for handling user input.
    */
-  public TextButton(String text, String font, int x, int y, InputManager inputManager) {
+  public TextButton(String text, int x, int y, Font font, InputManager inputManager) {
     this(text, x, y, font, Color.BLACK, 12, inputManager);
   }
 
@@ -44,26 +44,19 @@ public class TextButton extends AbstractButton {
    * @param text The text content of the button.
    * @param x The x-coordinate of the button.
    * @param y The y-coordinate of the button.
-   * @param font The path to the font file. ("/" - means /src/main/resources)
+   * @param font The font used for the text.
    * @param color The color of the button text.
    * @param fontSize The font size of the button text.
    * @param inputManager The InputManager instance for handling user input.
    */
-  public TextButton(String text, int x, int y, String font, Color color, int fontSize, InputManager inputManager) {
+  public TextButton(String text, int x, int y, Font font, Color color, int fontSize, InputManager inputManager) {
     super(x, y, 1, 1, color, inputManager);
 
-    try {
-      this.font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream(font));
-      this.font = this.font.deriveFont(Font.PLAIN, fontSize);
-
-      this.text = text;
-      this.color = color;
-      this.fontSize = fontSize;
-      this.calculateSize();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
+    this.font = font.deriveFont(Font.PLAIN, fontSize);
+    this.text = text;
+    this.color = color;
+    this.fontSize = fontSize;
+    this.calculateSize();
   }
 
   /** Calculates the size (in pixels) of the text */

@@ -1,9 +1,12 @@
 package xyz.nebulaquest.screen;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.image.BufferedImage;
 
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Renderer;
+import xyz.nebulaquest.resource.ResourceManager;
 import xyz.nebulaquest.timer.Timer;
 import xyz.nebulaquest.ui.Image;
 import xyz.nebulaquest.ui.Text;
@@ -22,17 +25,21 @@ public class CreditsScreen extends Screen {
   private TextButton returnButton;
   private Timer returnTimer;
 
-  public CreditsScreen(InputManager inputManager, ScreenManager screenManager) {
-    super(inputManager, screenManager);
+  public CreditsScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager) {
+    super(inputManager, screenManager, resourceManager);
   }
 
   @Override
   public void load() {
-    background = new Image("/images/background.png", 0, 0);
-    title = new Text("Nebula Quest", 280, 100, "/fonts/NewRocker.ttf", new Color(0xff7b00), 70);
-    autor1 = new Text("Dominik1", 280, 250, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50);
-    autor2 = new Text("Dominik2", 280, 310, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50);
-    returnButton = new TextButton("Return", 150, 410, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
+    BufferedImage backgroundImage = resourceManager.getImage("/images/background.png");
+    Font titleFont = resourceManager.getFont("/fonts/MOOD MKII.ttf");
+    Font font = resourceManager.getFont("/fonts/MiniMOOD.ttf");
+
+    background = new Image(backgroundImage, 0, 0);
+    title = new Text("Nebula Quest", 50, 100, titleFont, new Color(0xff7b00), 50);
+    autor1 = new Text("Dominik1", 280, 250, font, new Color(0xff7b00), 20);
+    autor2 = new Text("Dominik2", 280, 310, font, new Color(0xff7b00), 20);
+    returnButton = new TextButton("Return", 50, 450, font, new Color(0xff7b00), 30, inputManager);
     returnTimer = new Timer(10000);
     
     returnButton.onClick().subscribe(()->this.backToMenu());

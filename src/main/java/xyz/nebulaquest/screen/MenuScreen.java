@@ -1,9 +1,12 @@
 package xyz.nebulaquest.screen;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.image.BufferedImage;
 
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Renderer;
+import xyz.nebulaquest.resource.ResourceManager;
 import xyz.nebulaquest.ui.Image;
 import xyz.nebulaquest.ui.Text;
 import xyz.nebulaquest.ui.TextButton;
@@ -23,18 +26,22 @@ public class MenuScreen extends Screen {
   private TextButton exitButton;
 
 
-  public MenuScreen(InputManager inputManager, ScreenManager screenManager) {
-    super(inputManager, screenManager);
+  public MenuScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager) {
+    super(inputManager, screenManager, resourceManager);
   }
 
   @Override
   public void load() {
-    background = new Image("/images/background.png", 0, 0);
-    title = new Text("Nebula Quest", 280, 100, "/fonts/NewRocker.ttf", new Color(0xff7b00), 70);
-    startButton = new TextButton("Start", 280, 250, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
-    optionsButton = new TextButton("Options", 280, 310, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
-    creditsButton = new TextButton("Credits", 280, 370, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
-    exitButton = new TextButton("Exit", 280, 430, "/fonts/Fervojo-Regular.otf", new Color(0xff7b00), 50, inputManager);
+    BufferedImage backgroundImage = resourceManager.getImage("/images/background.png");
+    Font titleFont = resourceManager.getFont("/fonts/MOOD MKII.ttf");
+    Font font = resourceManager.getFont("/fonts/MiniMOOD.ttf");
+
+    background = new Image(backgroundImage, 0, 0);
+    title = new Text("Nebula Quest", 50, 100, titleFont, new Color(0xff7b00), 50);
+    startButton = new TextButton("Start", 280, 250, font, new Color(0xff7b00), 30, inputManager);
+    optionsButton = new TextButton("Options", 280, 310, font, new Color(0xff7b00), 30, inputManager);
+    creditsButton = new TextButton("Credits", 280, 370, font, new Color(0xff7b00), 30, inputManager);
+    exitButton = new TextButton("Exit", 280, 430, font, new Color(0xff7b00), 30, inputManager);
 
     creditsButton.onClick().subscribe(()->this.screenManager.change("credits"));
     exitButton.onClick().subscribe(this::handleExitButtonClick);

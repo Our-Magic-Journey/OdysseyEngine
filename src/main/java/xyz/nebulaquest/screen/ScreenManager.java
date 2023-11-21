@@ -7,6 +7,7 @@ import xyz.nebulaquest.event.Event;
 import xyz.nebulaquest.event.EventGetter;
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Renderer;
+import xyz.nebulaquest.resource.ResourceManager;
 
 /**
  * Manages different screens in the game, allowing screen transitions, updates, and drawing.
@@ -36,16 +37,18 @@ public class ScreenManager {
    * Constructs a new ScreenManager instance.
    *
    * @param inputManager The InputManager instance for handling user input.
+   * @param resourceManager The ResourceManager instance for accessing game resources.
    */
-  public ScreenManager(InputManager inputManager) {
+  public ScreenManager(InputManager inputManager, ResourceManager resourceManager) {
     this.screens = new HashMap<>();
     this.closeGameEvent = new Event();
-    this.selected = "menu";
+    this.selected = "loading";
     this.nextScreen = Optional.empty();
 
     // Register default screens and load the initial screen.
-    registerScreen("menu", new MenuScreen(inputManager, this));
-    registerScreen("credits", new CreditsScreen(inputManager, this));
+    registerScreen("loading", new LoadingScreen(inputManager, this, resourceManager));
+    registerScreen("menu", new MenuScreen(inputManager, this, resourceManager));
+    registerScreen("credits", new CreditsScreen(inputManager, this, resourceManager));
     current().load();
   }
 
