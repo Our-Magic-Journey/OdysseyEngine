@@ -3,6 +3,7 @@ package xyz.nebulaquest;
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Renderer;
 import xyz.nebulaquest.renderer.Window;
+import xyz.nebulaquest.resource.ResourceManager;
 import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.screen.ScreenManager;
 
@@ -30,6 +31,7 @@ public class Game implements Runnable {
   private Renderer renderer;
   private InputManager inputManager;
   private ScreenManager screenManager;
+  private ResourceManager resourceManager;
   private Thread thread;
   private boolean running;
   private long lastFrame;
@@ -46,12 +48,16 @@ public class Game implements Runnable {
     canvas = new Canvas(960, 540);
     renderer = new Renderer(canvas);
     inputManager = new InputManager();
-    screenManager = new ScreenManager(inputManager);
+    resourceManager = new ResourceManager();
+    resourceManager.startLoading();
+    screenManager = new ScreenManager(inputManager, resourceManager);
+    
 
     canvas.onReady().subscribe(this::start);
     screenManager.onGameClose().subscribe(this::close);
 
     window.attachCanvas(canvas);
+    
   }
 
   /**

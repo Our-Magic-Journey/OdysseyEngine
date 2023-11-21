@@ -3,8 +3,6 @@ package xyz.nebulaquest.ui;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
-
 import xyz.nebulaquest.renderer.Drawable;
 import xyz.nebulaquest.renderer.Canvas;
 
@@ -20,29 +18,25 @@ public class Image implements Drawable {
   private int y;
 
   /**
-   * Constructs an Image instance with the specified image source.
+   * Constructs an Image instance with the specified BufferedImage and default position (0, 0).
    * 
-   * @param source The path to the image file. ("/" points to /src/main/resources)
+   * @param image The BufferedImage to be used as the image source. This image will be drawn when rendering.
    */
-  public Image(String source) {
-    this(source, 0, 0);
+  public Image(BufferedImage image) {
+    this(image, 0, 0);
   }
 
   /**
-   * Constructs an Image instance with the specified image source and initial position.
+   * Constructs an Image instance with the specified BufferedImage and initial position.
    * 
-   * @param source The path to the image file.
+   * @param image The BufferedImage to be used as the image source. This image will be drawn when rendering.
    * @param x The initial x-coordinate of the image.
    * @param y The initial y-coordinate of the image.
    */
-  public Image(String source, int x, int y) {
-    try {
-      this.image = ImageIO.read(getClass().getResourceAsStream(source));
-      this.x = x;
-      this.y = y;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public Image(BufferedImage image, int x, int y) {
+    this.image = image;
+    this.x = x;
+    this.y = y;
   }
 
   /**

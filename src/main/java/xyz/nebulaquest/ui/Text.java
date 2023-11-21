@@ -29,11 +29,11 @@ public class Text implements Drawable {
    * Constructs a Text instance with the specified text content, font, and position.
    *
    * @param text The content of the text.
-   * @param font The path to the font file. ("/" - means /src/main/resources)
    * @param x The x-coordinate of the text.
    * @param y The y-coordinate of the text.
+   * @param font The font used for the text.
    */
-  public Text(String text, String font, int x,  int y) {
+  public Text(String text, int x,  int y, Font font) {
     this(text, x, y, font, Color.BLACK, 12);
   }
 
@@ -43,25 +43,18 @@ public class Text implements Drawable {
    * @param text The content of the text.
    * @param x The x-coordinate of the text.
    * @param y The y-coordinate of the text.
-   * @param font The path to the font file. ("/" - means /src/main/resources)
+   * @param font The font used for the text.
    * @param color The color of the text.
    * @param fontSize The size of the text.
    */
-  public Text(String text, int x, int y, String font, Color color, int fontSize) {
-    try {
-      this.font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream(font));
-      this.font = this.font.deriveFont(Font.PLAIN, fontSize);
-
-      this.text = text;
-      this.x = x;
-      this.y = y;
-      this.color = color;
-      this.fontSize = fontSize;
-      this.calculateSize();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
+  public Text(String text, int x, int y, Font font, Color color, int fontSize) {
+    this.font = font.deriveFont(Font.PLAIN, fontSize);
+    this.text = text;
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.fontSize = fontSize;
+    this.calculateSize();
   }
 
   /** Calculates the size (in pixels) of the text */
