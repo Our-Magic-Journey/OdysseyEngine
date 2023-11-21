@@ -50,7 +50,7 @@ public class Timer implements Updatable {
    * <p>The "timeout" event is emitted when the time set in {@code waitTime} parameter elapses</p>
    * <p>Subscribe a function to this event; when the {@code waitTime} elapses, the subscribed function will be called.</p>
    *
-   * @return An {@link EventGetter} for the "click" event.
+   * @return An {@link EventGetter} for the "timeout" event.
    */
    public EventGetter onTimeout() {
     return timeoutEvent;
