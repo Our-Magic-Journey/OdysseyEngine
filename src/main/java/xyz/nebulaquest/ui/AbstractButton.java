@@ -85,6 +85,7 @@ public abstract class AbstractButton implements Updatable, Drawable {
   public void dispatch(InputManager inputManager) {
     inputManager.onMouseEvent().unsubscribe(MouseInputType.MOVE, this::handleMouseMove);
     inputManager.onMouseEvent().unsubscribe(MouseInputType.CLICK, this::handleMouseClick);
+    clickEvent.unsubscribeAll();
   }
 
   /** Handles the mouse move event to check if the mouse is over the button. */
