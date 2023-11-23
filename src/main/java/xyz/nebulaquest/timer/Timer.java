@@ -57,6 +57,13 @@ public class Timer implements Updatable {
   }
 
   /**
+   * Unsubscribes all subscribers from the "timeout" event
+   */
+  public void dispatch() {
+    this.timeoutEvent.unsubscribeAll();
+  }
+
+  /**
    * Resets the timer, setting the remaining time to the original waiting time.
    * It also unpauses the timer if it was paused.
    */
