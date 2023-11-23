@@ -625,4 +625,15 @@ public class Vector {
   public static boolean lessOrEqual(Vector vecA, Vector vecB) {
     return vecA.lessOrEqual(vecB);
   }
+
+  /**
+   * Multiplies a 2D vector by a 2x2 matrix.
+   *
+   * @param vec The vector to be multiplied.
+   * @param matrix The 2x2 matrix to multiply with the vector.
+   * @return A new vector representing the result of the matrix-vector multiplication.
+   */
+  public static Vector multiplyByMatrix(Vector vec, Matrix2x2 matrix) {
+    return matrix.multiplyByVector(vec);
+  }
 }
