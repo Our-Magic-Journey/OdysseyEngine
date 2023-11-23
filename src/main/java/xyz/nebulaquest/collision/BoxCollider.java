@@ -1,11 +1,12 @@
 package xyz.nebulaquest.collision;
 
+import xyz.nebulaquest.math.Vector;
+
 /**
  * Rectangular box collider used for collision detection.
  */
 public class BoxCollider {
-  private int x;
-  private int y;
+  private Vector position;
   private int width;
   private int height;
 
@@ -18,8 +19,18 @@ public class BoxCollider {
    * @param height The height of the box.
    */
   public BoxCollider(int x, int y, int width, int height) {
-    this.x = x;
-    this.y = y;
+    this(new Vector(x, y), width, height);
+  }
+
+  /**
+   * Constructs a new BoxCollider with the specified position and dimensions.
+   *
+   * @param position The coordinates of the top-left corner of the box.
+   * @param width  The width of the box.
+   * @param height The height of the box.
+   */
+  public BoxCollider(Vector position, int width, int height) {
+    this.position = position;
     this.width = width;
     this.height = height;
   }
@@ -32,10 +43,26 @@ public class BoxCollider {
    * @return {@code true} if the point is inside the box, {@code false} otherwise.
    */
   public boolean containsPoint(int pX, int pY) {
-    return pX >= this.x
-        && pY >= this.y
-        && pX <= this.x + this.width
-        && pY <= this.y + this.height;
+    return containsPoint(new Vector(pX, pY));
+  }
+
+  /**
+   * Checks if the specified point is contained within the box collider.
+   *
+   * @param point The vector representing the point to check.
+   * @return {@code true} if the point is inside the box, {@code false} otherwise.
+   */
+  public boolean containsPoint(Vector point) {
+    return point.greaterOrEqual(position) && point.lessOrEqual(getBottomRightCorner());
+  }
+
+  /**
+   * Calculates the vector representing the bottom-right corner of the box.
+   *
+   * @return The vector representing the bottom-right corner of the box.
+   */
+  protected Vector getBottomRightCorner() {
+    return Vector.addition(position, new Vector(width, height));
   }
 
   /**
@@ -45,9 +72,6 @@ public class BoxCollider {
    * @return {@code true} if there is a collision, {@code false} otherwise.
    */
   public boolean collides(BoxCollider box) {
-    return this.x <= box.x + box.width 
-        && this.y <= box.y + box.height 
-        && this.x + this.width >= box.x
-        && this.y + this.height >= box.y;
+    return position.lessOrEqual(box.getBottomRightCorner()) && getBottomRightCorner().greaterOrEqual(box.position);
   }
 }

@@ -195,63 +195,90 @@ public class Vector {
   }
 
   /**
-   * Adds the components of another vector to this vector.
+   * Creates and returns a new vector that is a copy of this vector.
    *
-   * @param vector The vector to add.
+   * @return A new vector that is a copy of this vector.
    */
-  public void add(Vector vector) {
-    add(vector.getX(), vector.getY());
+  public Vector clone() {
+    return new Vector(this);
   }
 
   /**
-   * Adds the components of another vector to this vector.
+   * Adds the components of another vector to this vector, modifying the current vector.
+   *
+   * @param vector The vector to add.
+   * @return This vector after addition.
+   */
+  public Vector add(Vector vector) {
+    add(vector.getX(), vector.getY());
+
+    return this;
+  }
+
+  /**
+   * Adds the components of another vector to this vector, modifying the current vector.
    *
    * @param x The value to add from the x-component.
    * @param y The value to add from the y-component.
+   * @return This vector after addition. 
    */
-  public void add(double x, double y) {
+  public Vector add(double x, double y) {
     this.x += x;
     this.y += y;
+
+    return this;
   }
 
   /**
-   * Subtracts the components of another vector from this vector.
+   * Subtracts the components of another vector from this vector, modifying the current vector.
    *
    * @param vector The vector to subtract.
+   * @return This vector after subtraction.
    */
-  public void subtract(Vector vector) {
+  public Vector subtract(Vector vector) {
     subtract(vector.getX(), vector.getY());
+
+    return this;
   }
 
   /**
-   * Subtracts the specified values from the x and y components of this vector.
+   * Subtracts the specified values from the x and y components of this vector, modifying the current vector.
    *
    * @param x The value to subtract from the x-component.
    * @param y The value to subtract from the y-component.
+   * @return This vector after subtraction.
    */
-  public void subtract(double x, double y) {
+  public Vector subtract(double x, double y) {
     this.x -= x;
     this.y -= y;
+
+    return this;
   }
 
   /**
-   * Multiplies the components of this vector by a scalar.
+   * Multiplies the components of this vector by a scalar, modifying the current vector.
    *
    * @param scalar The scalar value to multiply by.
+   * @return This vector after multiplication.
    */
-  public void multiply(double scalar) {
+  public Vector multiply(double scalar) {
     this.x *= scalar;
     this.y *= scalar;
+
+    return this;
   }
 
   /**
-   * Divides the components of this vector by a scalar.
+   * Divides the components of this vector by a scalar, modifying the current vector.
    *
    * @param scalar The scalar value to divide by.
+   * @return This vector after division.
    */
-  public void divide(double scalar) {
+  public Vector divide(double scalar) {
     this.x /= scalar;
     this.y /= scalar;
+
+    return this;
   }
 
   /**
