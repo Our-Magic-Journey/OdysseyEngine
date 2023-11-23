@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import xyz.nebulaquest.input.InputManager;
+import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.renderer.Renderer;
 import xyz.nebulaquest.resource.ResourceManager;
 import xyz.nebulaquest.ui.Image;
@@ -28,8 +29,8 @@ public class LoadingScreen extends Screen {
   Font titleFont;
   Font font;
 
-  public LoadingScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager) {
-    super(inputManager, screenManager, resourceManager);
+  public LoadingScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager, Canvas canvas) {
+    super(inputManager, screenManager, resourceManager, canvas);
 
     loadAssets();
   }

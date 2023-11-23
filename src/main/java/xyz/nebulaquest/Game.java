@@ -50,7 +50,7 @@ public class Game implements Runnable {
     inputManager = new InputManager();
     resourceManager = new ResourceManager();
     resourceManager.startLoading();
-    screenManager = new ScreenManager(inputManager, resourceManager);
+    screenManager = new ScreenManager(inputManager, resourceManager, canvas);
     
 
     canvas.onReady().subscribe(this::start);

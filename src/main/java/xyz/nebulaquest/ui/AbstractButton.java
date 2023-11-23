@@ -9,6 +9,7 @@ import xyz.nebulaquest.event.Event;
 import xyz.nebulaquest.event.EventGetter;
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.input.types.MouseInputType;
+import xyz.nebulaquest.math.Vector;
 import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.renderer.Drawable;
 import xyz.nebulaquest.timer.Timer;
@@ -22,6 +23,7 @@ import xyz.nebulaquest.update.Updatable;
  * @see Drawable
  */
 public abstract class AbstractButton implements Updatable, Drawable {
+  protected Canvas canvas;
   protected BoxCollider collider;
   protected boolean hover;
   protected boolean clicked;
@@ -45,7 +47,7 @@ public abstract class AbstractButton implements Updatable, Drawable {
    * @param inputManager The input manager for handling user input.
    * 
    */
-  public AbstractButton(int x, int y, int width, int height, Color color, InputManager inputManager) {
+  public AbstractButton(int x, int y, int width, int height, Color color, InputManager inputManager, Canvas canvas) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -57,6 +59,7 @@ public abstract class AbstractButton implements Updatable, Drawable {
     this.clicked = false;
     this.clickedTimer = new Timer(250);
     this.collider = new BoxCollider(x, y, width, height);
+    this.canvas = canvas;
 
     inputManager.onMouseEvent().subscribe(MouseInputType.MOVE, this::handleMouseMove);
     inputManager.onMouseEvent().subscribe(MouseInputType.CLICK, this::handleMouseClick);
@@ -86,11 +89,12 @@ public abstract class AbstractButton implements Updatable, Drawable {
     inputManager.onMouseEvent().unsubscribe(MouseInputType.MOVE, this::handleMouseMove);
     inputManager.onMouseEvent().unsubscribe(MouseInputType.CLICK, this::handleMouseClick);
     clickEvent.unsubscribeAll();
+    clickedTimer.dispatch();
   }
 
   /** Handles the mouse move event to check if the mouse is over the button. */
   protected void handleMouseMove(MouseEvent event) {
-    this.hover = this.collider.containsPoint(event.getX() + event.getComponent().getX(), event.getY() + event.getComponent().getY());
+    this.hover = this.collider.containsPoint(canvas.pointInCanvas(Vector.fromPoint(event.getPoint())));
   }
 
   /* Handles the mouse click event to check if the button is clicked. */
@@ -116,7 +120,7 @@ public abstract class AbstractButton implements Updatable, Drawable {
   public void setPosition(int x, int y) {
     this.x = x;
     this.y = y;
-    collider = new BoxCollider(x, y, width, height);
+    this.collider = new BoxCollider(x, y, width, height);
   }
 
   @Override

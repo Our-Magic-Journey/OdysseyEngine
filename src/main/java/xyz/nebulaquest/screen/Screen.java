@@ -1,6 +1,7 @@
 package xyz.nebulaquest.screen;
 
 import xyz.nebulaquest.input.InputManager;
+import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.renderer.Renderer;
 import xyz.nebulaquest.resource.ResourceManager;
 
@@ -8,6 +9,7 @@ import xyz.nebulaquest.resource.ResourceManager;
 public abstract class Screen {
   protected InputManager inputManager;
   protected ResourceManager resourceManager;
+  protected Canvas canvas;
 
   // Can be used to change active screen or closing the game.
   protected ScreenManager screenManager;
@@ -18,11 +20,13 @@ public abstract class Screen {
    * @param inputManager The input manager for handling user input.
    * @param screenManager The screen manager for closing game and screen navigation.
    * @param resourceManager The resource manager for accessing game resources.
+   * @param canvas The canvas for calculations based on its size and position.
    */
-  public Screen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager) {
+  public Screen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager, Canvas canvas) {
     this.inputManager = inputManager;
     this.screenManager = screenManager;
     this.resourceManager = resourceManager;
+    this.canvas = canvas;
   }
 
   /** Initializes the screen and its resources. */

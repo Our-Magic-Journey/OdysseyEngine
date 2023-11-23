@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 
 import xyz.nebulaquest.input.InputManager;
+import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.renderer.Renderer;
 import xyz.nebulaquest.resource.ResourceManager;
 import xyz.nebulaquest.timer.Timer;
@@ -20,13 +21,13 @@ import xyz.nebulaquest.ui.TextButton;
 public class CreditsScreen extends Screen {
   private Image background;
   private Text title;
-  private Text autor1;
-  private Text autor2;
+  private Text author1;
+  private Text author2;
   private TextButton returnButton;
   private Timer returnTimer;
 
-  public CreditsScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager) {
-    super(inputManager, screenManager, resourceManager);
+  public CreditsScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager, Canvas canvas) {
+    super(inputManager, screenManager, resourceManager, canvas);
   }
 
   @Override
@@ -37,12 +38,12 @@ public class CreditsScreen extends Screen {
 
     background = new Image(backgroundImage, 0, 0);
     title = new Text("Nebula Quest", 50, 100, titleFont, new Color(0xff7b00), 50);
-    autor1 = new Text("Dominik1", 280, 250, font, new Color(0xff7b00), 20);
-    autor2 = new Text("Dominik2", 280, 310, font, new Color(0xff7b00), 20);
-    returnButton = new TextButton("Return", 50, 450, font, new Color(0xff7b00), 30, inputManager);
+    author1 = new Text("Dominik 1", 280, 250, font, new Color(0xff7b00), 20);
+    author2 = new Text("Dominik 2", 280, 310, font, new Color(0xff7b00), 20);
+    returnButton = new TextButton("Return", 50, 450, font, new Color(0xff7b00), 30, inputManager, canvas);
     returnTimer = new Timer(10000);
     
-    returnButton.onClick().subscribe(()->this.backToMenu());
+    returnButton.onClick().subscribe(this::backToMenu);
     returnTimer.onTimeout().subscribe(this::backToMenu);
 
     returnTimer.resume();
@@ -52,10 +53,9 @@ public class CreditsScreen extends Screen {
     this.screenManager.change("menu");
   }
 
-
   @Override
   public void unload() {
-    returnTimer.onTimeout().unsubscribe(this::backToMenu);
+    returnTimer.dispatch();
     returnButton.dispatch(inputManager);
   }
 
@@ -69,10 +69,8 @@ public class CreditsScreen extends Screen {
   public void draw(Renderer renderer) {
     renderer.draw(background);
     renderer.draw(title);
-    renderer.draw(autor1);
-    renderer.draw(autor2);
+    renderer.draw(author1);
+    renderer.draw(author2);
     renderer.draw(returnButton);
-
   }
-
 }

@@ -20,8 +20,8 @@ public class MenuButton extends AbstractButton {
    * @param inputManager The input manager for handling user input.
    * 
    */
-  public MenuButton(int x, int y,InputManager inputManager) {
-    super(x,y,25,40,new Color(0xff7b00),inputManager);
+  public MenuButton(int x, int y,InputManager inputManager, Canvas canvas) {
+    super(x, y, 25, 40, new Color(0xff7b00), inputManager, canvas);
   }
 
   @Override
