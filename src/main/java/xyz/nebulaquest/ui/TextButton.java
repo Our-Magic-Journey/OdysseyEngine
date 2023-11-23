@@ -34,8 +34,8 @@ public class TextButton extends AbstractButton {
    * @param font The font used for the text.
    * @param inputManager The InputManager instance for handling user input.
    */
-  public TextButton(String text, int x, int y, Font font, InputManager inputManager) {
-    this(text, x, y, font, Color.BLACK, 12, inputManager);
+  public TextButton(String text, int x, int y, Font font, InputManager inputManager, Canvas canvas) {
+    this(text, x, y, font, Color.BLACK, 12, inputManager, canvas);
   }
 
   /**
@@ -49,8 +49,8 @@ public class TextButton extends AbstractButton {
    * @param fontSize The font size of the button text.
    * @param inputManager The InputManager instance for handling user input.
    */
-  public TextButton(String text, int x, int y, Font font, Color color, int fontSize, InputManager inputManager) {
-    super(x, y, 1, 1, color, inputManager);
+  public TextButton(String text, int x, int y, Font font, Color color, int fontSize, InputManager inputManager, Canvas canvas) {
+    super(x, y, 1, 1, color, inputManager, canvas);
 
     this.font = font.deriveFont(Font.PLAIN, fontSize);
     this.text = text;
@@ -70,7 +70,7 @@ public class TextButton extends AbstractButton {
 
     width = metrics.stringWidth(text);
     height = metrics.getHeight();
-    collider = new BoxCollider(x, y, width, height);
+    this.collider = new BoxCollider(x, y, width, height);
   }
 
   /**

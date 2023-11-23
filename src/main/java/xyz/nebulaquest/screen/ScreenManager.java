@@ -6,6 +6,7 @@ import java.util.Optional;
 import xyz.nebulaquest.event.Event;
 import xyz.nebulaquest.event.EventGetter;
 import xyz.nebulaquest.input.InputManager;
+import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.renderer.Renderer;
 import xyz.nebulaquest.resource.ResourceManager;
 
@@ -38,17 +39,18 @@ public class ScreenManager {
    *
    * @param inputManager The InputManager instance for handling user input.
    * @param resourceManager The ResourceManager instance for accessing game resources.
+   * @param canvas The canvas for calculations based on its size and position.
    */
-  public ScreenManager(InputManager inputManager, ResourceManager resourceManager) {
+  public ScreenManager(InputManager inputManager, ResourceManager resourceManager, Canvas canvas) {
     this.screens = new HashMap<>();
     this.closeGameEvent = new Event();
     this.selected = "loading";
     this.nextScreen = Optional.empty();
 
     // Register default screens and load the initial screen.
-    registerScreen("loading", new LoadingScreen(inputManager, this, resourceManager));
-    registerScreen("menu", new MenuScreen(inputManager, this, resourceManager));
-    registerScreen("credits", new CreditsScreen(inputManager, this, resourceManager));
+    registerScreen("loading", new LoadingScreen(inputManager, this, resourceManager, canvas));
+    registerScreen("menu", new MenuScreen(inputManager, this, resourceManager, canvas));
+    registerScreen("credits", new CreditsScreen(inputManager, this, resourceManager, canvas));
     current().load();
   }
 

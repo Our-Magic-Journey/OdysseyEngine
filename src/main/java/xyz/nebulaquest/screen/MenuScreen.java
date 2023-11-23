@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 
 import xyz.nebulaquest.input.InputManager;
+import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.renderer.Renderer;
 import xyz.nebulaquest.resource.ResourceManager;
 import xyz.nebulaquest.ui.Image;
@@ -25,9 +26,8 @@ public class MenuScreen extends Screen {
   private TextButton creditsButton;
   private TextButton exitButton;
 
-
-  public MenuScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager) {
-    super(inputManager, screenManager, resourceManager);
+  public MenuScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager, Canvas canvas) {
+    super(inputManager, screenManager, resourceManager, canvas);
   }
 
   @Override
@@ -38,10 +38,10 @@ public class MenuScreen extends Screen {
 
     background = new Image(backgroundImage, 0, 0);
     title = new Text("Nebula Quest", 50, 100, titleFont, new Color(0xff7b00), 50);
-    startButton = new TextButton("Start", 280, 250, font, new Color(0xff7b00), 30, inputManager);
-    optionsButton = new TextButton("Options", 280, 310, font, new Color(0xff7b00), 30, inputManager);
-    creditsButton = new TextButton("Credits", 280, 370, font, new Color(0xff7b00), 30, inputManager);
-    exitButton = new TextButton("Exit", 280, 430, font, new Color(0xff7b00), 30, inputManager);
+    startButton = new TextButton("Start", 280, 250, font, new Color(0xff7b00), 30, inputManager, canvas);
+    optionsButton = new TextButton("Options", 280, 310, font, new Color(0xff7b00), 30, inputManager, canvas);
+    creditsButton = new TextButton("Credits", 280, 370, font, new Color(0xff7b00), 30, inputManager, canvas);
+    exitButton = new TextButton("Exit", 280, 430, font, new Color(0xff7b00), 30, inputManager, canvas);
 
     creditsButton.onClick().subscribe(()->this.screenManager.change("credits"));
     exitButton.onClick().subscribe(this::handleExitButtonClick);
