@@ -48,5 +48,6 @@ public class Renderer {
     screen.drawImage(buffer, topLeftCorner.getRoundX(), topLeftCorner.getRoundY(), canvas.getCanvasWidth(), canvas.getCanvasHeight(), null);
 
     screen.dispose();
+    graphic.clearRect(0, 0, buffer.getWidth(), buffer.getHeight());
   }
 }
