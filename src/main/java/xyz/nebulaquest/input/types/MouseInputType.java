@@ -39,11 +39,6 @@ public enum MouseInputType {
   EXIT,
 
   /** 
-   * Indicates that the mouse wheel was scrolled.
-   */
-  SCROLL,
-
-  /** 
    * Indicates that the mouse was dragged (moved while a button was held down).
    */
   DRAG,
