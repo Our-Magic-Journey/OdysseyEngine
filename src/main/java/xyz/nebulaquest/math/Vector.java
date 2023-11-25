@@ -291,6 +291,36 @@ public class Vector {
   }
 
   /**
+   * Clamps the components of this vector to be within the specified range.
+   * The components are modified in-place.
+   *
+   * @param min The minimum value for each component.
+   * @param max The maximum value for each component.
+   * @return This vector after clamping.
+   */
+  public Vector clamp(int min, int max) {
+    this.x = Math.min(max, Math.max(min, x));
+    this.y = Math.min(max, Math.max(min, y));
+
+    return this;
+  }
+
+  /**
+   * Clamps the components of this vector to be within the specified range.
+   * The components are modified in-place.
+   *
+   * @param min The minimum vector values for each component.
+   * @param max The maximum vector values for each component.
+   * @return This vector after clamping.
+   */
+  public Vector clamp(Vector min, Vector max) {
+    this.x = Math.min(max.getX(), Math.max(min.getX(), x));
+    this.y = Math.min(max.getY(), Math.max(min.getY(), y));
+
+    return this;
+  }
+
+  /**
    * Normalizes this vector by dividing each component by its length.
    */
   public void normalize() {
