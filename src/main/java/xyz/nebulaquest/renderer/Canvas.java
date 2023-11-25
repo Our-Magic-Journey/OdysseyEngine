@@ -20,7 +20,6 @@ public class Canvas extends JPanel {
   private int canvasWidth;
   private int canvasHeight;
   private Vector canvasPosition;
-  private float zoom;
 
   private Event readyEvent;
   /**
@@ -44,7 +43,6 @@ public class Canvas extends JPanel {
     this.canvasWidth = width;
     this.canvasHeight = height;
     this.canvasPosition = new Vector();
-    this.zoom = 1;
 
     this.readyEvent = new Event();
 
@@ -80,7 +78,7 @@ public class Canvas extends JPanel {
   }
 
   /**
-   * Resizes the canvas based on the current size and zoom factor.
+   * Resizes the canvas based on the current size.
    * Recalculates the scale factor, dimensions, and position.
    */
   private void resizeCanvas() {
@@ -90,13 +88,13 @@ public class Canvas extends JPanel {
   }
 
   /**
-   * Calculates the scale factor for the canvas based on the current size and zoom factor.
+   * Calculates the scale factor for the canvas based on the current size.
    *
    * <p><b>WHY?</b> We calculate the scale factor to maintain a constant proportion of the canvas, regardless of the new window size after resizing.</p>
    */
   private void calculateScaleFactor() {
-    float scaleX = (float) (this.getWidth() * zoom) / (targetWidth);
-    float scaleY = (float) (this.getHeight() * zoom) / (targetHeight);
+    float scaleX = (float) (this.getWidth()) / targetWidth;
+    float scaleY = (float) (this.getHeight()) / targetHeight;
 
     scaleFactor = Math.min(scaleX, scaleY);
   }
@@ -117,26 +115,6 @@ public class Canvas extends JPanel {
       (getWidth() - canvasWidth) / 2,
       (getHeight() - canvasHeight) / 2
     );
-  }
-
-  /**
-   * Sets the zoom of the canvas.
-   *
-   * @param zoom The new zoom factor.
-   */
-  public void setZoom(float zoom) {
-    this.zoom = zoom;
-
-    resizeCanvas();
-  }
-
-  /**
-   * Gets the current zoom of the canvas
-   *
-   * @return The current zoom factor.
-   */
-  public float getZoom() {
-    return this.zoom;
   }
 
   /**
