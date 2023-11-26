@@ -7,7 +7,7 @@ public enum KeyInputType {
   /** 
    * Indicates that a keyboard key was pressed.
    * 
-   * <p><b>NOTE:</b> This event is emitted once per key click.</p>
+   * <p><b>NOTE:</b> This event is emitted every frame</p>
    */
   PRESS,
 

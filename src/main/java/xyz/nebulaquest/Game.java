@@ -5,6 +5,7 @@ import xyz.nebulaquest.renderer.Renderer;
 import xyz.nebulaquest.renderer.Window;
 import xyz.nebulaquest.resource.ResourceManager;
 import xyz.nebulaquest.renderer.Canvas;
+import xyz.nebulaquest.screen.LoadingScreen;
 import xyz.nebulaquest.screen.ScreenManager;
 
 /**
@@ -44,20 +45,20 @@ public class Game implements Runnable {
   }
 
   public Game() {
+    LoadingScreen.loadAssets();
+
     window = new Window("Nebula Quest");
     canvas = new Canvas(960, 540);
     renderer = new Renderer(canvas);
     inputManager = new InputManager();
     resourceManager = new ResourceManager();
-    resourceManager.startLoading();
     screenManager = new ScreenManager(inputManager, resourceManager, canvas);
     
-
     canvas.onReady().subscribe(this::start);
     screenManager.onGameClose().subscribe(this::close);
-
-    window.attachCanvas(canvas);
     
+    resourceManager.startLoading();
+    window.attachCanvas(canvas);
   }
 
   /**

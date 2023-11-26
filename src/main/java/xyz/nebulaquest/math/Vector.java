@@ -291,6 +291,36 @@ public class Vector {
   }
 
   /**
+   * Clamps the components of this vector to be within the specified range.
+   * The components are modified in-place.
+   *
+   * @param min The minimum value for each component.
+   * @param max The maximum value for each component.
+   * @return This vector after clamping.
+   */
+  public Vector clamp(int min, int max) {
+    this.x = Math.clamp(this.x, min, max);
+    this.y = Math.clamp(this.y, min, max);
+
+    return this;
+  }
+
+  /**
+   * Clamps the components of this vector to be within the specified range.
+   * The components are modified in-place.
+   *
+   * @param min The minimum vector values for each component.
+   * @param max The maximum vector values for each component.
+   * @return This vector after clamping.
+   */
+  public Vector clamp(Vector min, Vector max) {
+    this.x = Math.clamp(this.x, min.getX(), max.getX());
+    this.y = Math.clamp(this.y, min.getY(), max.getY());
+
+    return this;
+  }
+
+  /**
    * Normalizes this vector by dividing each component by its length.
    */
   public void normalize() {
@@ -662,5 +692,29 @@ public class Vector {
    */
   public static Vector multiplyByMatrix(Vector vec, Matrix2x2 matrix) {
     return matrix.multiplyByVector(vec);
+  }
+
+  /**
+   * Creates a new vector by cloning the provided vector and clamping its components to be within the specified range.
+   *
+   * @param vector The vector to be cloned and clamped.
+   * @param min    The minimum value for each component.
+   * @param max    The maximum value for each component.
+   * @return A new vector with clamped components.
+   */
+  public static Vector clamp(Vector vector, int min, int max) {
+    return vector.clone().clamp(min, max);
+  }
+
+  /**
+  * Creates a new vector by cloning the provided vector and clamping its components to be within the specified range.
+  *
+  * @param vector The vector to be cloned and clamped.
+  * @param min    The minimum vector values for each component.
+  * @param max    The maximum vector values for each component.
+  * @return A new vector with clamped components.
+  */
+  public static Vector clamp(Vector vector, Vector min, Vector max) {
+    return vector.clone().clamp(min, max);
   }
 }

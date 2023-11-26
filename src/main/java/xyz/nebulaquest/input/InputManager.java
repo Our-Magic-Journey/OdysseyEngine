@@ -2,6 +2,7 @@ package xyz.nebulaquest.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import javax.swing.JPanel;
 
@@ -9,6 +10,7 @@ import xyz.nebulaquest.event.EventGroup;
 import xyz.nebulaquest.event.EventGroupGetter;
 import xyz.nebulaquest.input.types.KeyInputType;
 import xyz.nebulaquest.input.types.MouseInputType;
+import xyz.nebulaquest.input.types.MouseWheelInputType;
 
 /**
  * Manages input events for keyboard and mouse interactions.
@@ -16,15 +18,19 @@ import xyz.nebulaquest.input.types.MouseInputType;
 public class InputManager {
   private EventGroup<MouseInputType, MouseEvent> mouseEvents;
   private EventGroup<KeyInputType, KeyEvent> keyboardEvents;
+  private EventGroup<MouseWheelInputType, MouseWheelEvent> wheelEvents;
 
   private KeyInputListener keyboardListener;
   private MouseInputListener mouseListener;
+  private MouseWheelInputListener wheelListener;
 
   public InputManager() {
     this.mouseEvents = new EventGroup<>();
     this.keyboardEvents = new EventGroup<>();
+    this.wheelEvents = new EventGroup<>();
     this.keyboardListener = new KeyInputListener(keyboardEvents);
     this.mouseListener = new MouseInputListener(mouseEvents);
+    this.wheelListener = new MouseWheelInputListener(wheelEvents);
   }
 
   /**
@@ -60,6 +66,21 @@ public class InputManager {
   }
 
   /**
+   * Returns an {@link EventGroupGetter} for mouse wheel input events.
+   * 
+   * <p>Use this method to access events related to mouse wheel interactions, such as scroll etc.</p>
+   * <p>Events are grouped by type (see {@link MouseWheelInputType}). You can subscribe a function 
+   * to a particular mouse wheel event; when that event occurs, this function will be called. 
+   * The function should contain an argument of type {@code MouseWheelEvent}, to which all details will be passed.
+   * </p>
+   *
+   * @return An {@link EventGroupGetter} for mouse wheel input events.
+   */
+  public EventGroupGetter<MouseWheelInputType, MouseWheelEvent> onMouseWheelEvent() {
+    return wheelEvents;
+  }
+
+  /**
    * Observes the specified JPanel for mouse and keyboard input events.
    *
    * @param panel The JPanel to observe.
@@ -68,5 +89,6 @@ public class InputManager {
     panel.addMouseListener(mouseListener);
     panel.addMouseMotionListener(mouseListener);
     panel.addKeyListener(keyboardListener);
+    panel.addMouseWheelListener(wheelListener);
   }
 }

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import xyz.nebulaquest.Game;
 import xyz.nebulaquest.input.InputManager;
 import xyz.nebulaquest.renderer.Canvas;
 import xyz.nebulaquest.renderer.Renderer;
@@ -25,24 +26,28 @@ public class LoadingScreen extends Screen {
   private Text loadingDetails;
   private Text loadingProgress;
 
-  BufferedImage backgroundImage;
-  Font titleFont;
-  Font font;
+  private static BufferedImage backgroundImage;
+  private static Font titleFont;
+  private static Font font;
 
   public LoadingScreen(InputManager inputManager, ScreenManager screenManager, ResourceManager resourceManager, Canvas canvas) {
     super(inputManager, screenManager, resourceManager, canvas);
-
-    loadAssets();
   }
 
   /**
-   * This screen is displayed before ResourceManager is ready, so we load assets manually.
+   * Loads assets to be used in the Loading screen.
+   * <p>This operation cannot be performed via ResourceManager because the Loading Screen is displayed before the ResourceManager is ready.</p>
+   *  
+   * <p><b>NOTE:</b> This method must be called before creating the game window; otherwise, Keyboard events may be disrupted.
+   * The error is likely related to the AWT event loop. Refer to https://stackoverflow.com/questions/44203744/program-blocks-when-calling-imageio-readfile </p>
    */
-  private void loadAssets() {
+  public static void loadAssets() {
     try {
-      backgroundImage = ImageIO.read(getClass().getResourceAsStream("/images/background.png"));
-      titleFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/MOOD MKII.ttf"));
-      font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/MiniMOOD.ttf"));
+      ClassLoader classLoader = Game.class.getClassLoader();
+
+      backgroundImage = ImageIO.read(classLoader.getResourceAsStream("images/background.png"));
+      titleFont = Font.createFont(Font.TRUETYPE_FONT, classLoader.getResourceAsStream("fonts/MOOD MKII.ttf"));
+      font = Font.createFont(Font.TRUETYPE_FONT, classLoader.getResourceAsStream("fonts/MiniMOOD.ttf"));
     }
     catch (Exception e) {
       e.printStackTrace();
