@@ -146,7 +146,7 @@ public class ResourceManager {
   private List<String> getAllFilesFromFolder(String folderPath) throws IOException {
     return Files.walk(Paths.get(folderPath))
       .filter(Files::isRegularFile)
-      .map(file -> file.toString().replace(folderPath, ""))
+      .map(file -> file.toString().replace("\\", "/").replace(folderPath, ""))
       .collect(Collectors.toList());
   }
 
