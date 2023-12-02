@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>xyz.nebulaquest</groupId>
+    <groupId>xyz.magicjourney.nebulaquest</groupId>
     <artifactId>nebulaquest</artifactId>
     <version>1.0.0</version>
     
@@ -16,7 +16,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>xyz.nebulaquest.Game</mainClass>
+                            <mainClass>xyz.magicjourney.nebulaquest.Game</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
